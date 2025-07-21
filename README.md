@@ -1,7 +1,11 @@
-##CURRENT PROGRESS
-Inivitations part has been added.
+## 🚧 Current Progress
 
-Server Settings need to be added next
+✅ **Invitations** feature has been implemented.
+
+🛠️ **Server Settings** feature is next on the roadmap.
+
+---
+
 
 
 
