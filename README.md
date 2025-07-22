@@ -1,3 +1,15 @@
+## 🚧 Current Progress
+
+✅ **Invitations** feature has been implemented.
+
+🛠️ **Server Settings** feature is next on the roadmap.
+
+---
+
+
+
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
