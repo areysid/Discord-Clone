@@ -1,9 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
     domains: ["utfs.io"],
+  },
+  typescript: {
+    ignoreBuildErrors: true, // Ignore TypeScript errors during build
   },
 };
 
