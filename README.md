@@ -7,13 +7,6 @@ If you plan to deploy to Vercel, check the [`main`](https://github.com/areysid/D
 
 ---
 
-## 🚧 Current Progress
-
-- ✅ **Leave & Delete Server** feature implemented.
-- 🛠️ **Search Server Modal** feature is next on the roadmap.
-
----
-
 ## 🛠️ Tech Stack
 
 - **Frontend:** Next.js 13, React, TailwindCSS, ShadcnUI
@@ -48,11 +41,16 @@ bun install
 
 ### 3. Configure environment variables:
 
-- Copy `.env.example` to `.env.local` and fill in the required credentials (Clerk, MySQL, UploadThing, LiveKit, etc.).
+- Create `.env` and fill in the required credentials (Clerk, MySQL, UploadThing, LiveKit, etc.).
 - For local MySQL, ensure a running database and update credentials accordingly.
 
 ```bash
-cp .env.example .env.local
+DATABASE_URL="YOUR_PLANETSCALE_DATABASE_URL"
+CLERK_FRONTEND_API="YOUR_CLERK_FRONTEND_API"
+CLERK_API_KEY="YOUR_CLERK_API_KEY"
+LIVEKIT_API_KEY="YOUR_LIVEKIT_API_KEY"
+LIVEKIT_API_SECRET="YOUR_LIVEKIT_API_SECRET"
+UPLOADTHING_KEY="YOUR_UPLOADTHING_KEY"
 ```
 
 ### 4. Push Prisma schema to your MySQL database
