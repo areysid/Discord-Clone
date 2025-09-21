@@ -3,50 +3,47 @@ import { RedirectToSignIn } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 
-interface ServerIdPageProps{
-  params: {
-    serverId: string;
-  }
-};
-
-const ServerIdPage = async({
-  params
-}: ServerIdPageProps) => {
-const profile = await currentProfile();
-
-
-if(!profile){
-  redirect("/sign-in");
+// Define the expected type for params
+interface ServerIdPageProps {
+  params: Promise<{ serverId: string }>;
 }
 
-const server = await db.server.findUnique({
-  where: {
-    id: params.serverId,
-    members: {
-      some: {
-        profileId: profile.id,
-      }
-    }
-  },
-  include:{
-    channels:{
+const ServerIdPage = async ({ params }: ServerIdPageProps) => {
+  // Resolve the params Promise
+  const { serverId } = await params;
+
+  const profile = await currentProfile();
+  if (!profile) {
+    redirect("/sign-in");
+  }
+
+  const server = await db.server.findUnique({
     where: {
-        name: "general"
+      id: serverId,
+      members: {
+        some: {
+          profileId: profile.id,
+        },
+      },
     },
-    orderBy: {
-      createdAt: "asc"
-    }
+    include: {
+      channels: {
+        where: {
+          name: "general",
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+      },
+    },
+  });
+
+  const initialChannel = server?.channels[0];
+  if (initialChannel?.name !== "general") {
+    return null;
   }
- }
-})
 
-const initialChannel = server?.channels[0];
-
-if(initialChannel?.name !== "general"){
-  return null;
-}
-
-  return redirect(`/server/${params.serverId}/channels/${initialChannel?.id}`)
+  return redirect(`/server/${serverId}/channels/${initialChannel?.id}`);
 };
 
 export default ServerIdPage;
