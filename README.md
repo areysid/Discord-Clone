@@ -1,20 +1,67 @@
-## 🚧 Current Progress
+# Discord Clone - Main Branch
 
-✅ **Leave & Delete Server** feature has been implemented.
+A modern fullstack Discord clone built with [Next.js 13](https://nextjs.org/), [React](https://react.dev/), [Socket.io](https://socket.io/), [Prisma](https://www.prisma.io/), [TailwindCSS](https://tailwindcss.com/), [MySQL (Planetscale)](https://planetscale.com/), [Clerk](https://clerk.com/), [ShadcnUI](https://ui.shadcn.com/), [UploadThing](https://uploadthing.com/), [Tanstack Query](https://tanstack.com/query/latest), and [LiveKit](https://livekit.io/).
 
-🛠️ **Search Server Modal** feature is next on the roadmap.
+This branch is **optimized for deployment on Vercel**.  
+The project is live on [Vercel-DiscordClone](https://discord-clone-umber-chi.vercel.app/)
+If you want a smoother local development experience, check out the [`version1`](https://github.com/areysid/Discord-Clone/tree/version1) branch.
 
 ---
 
+## 🛠️ Tech Stack
 
+- **Frontend:** Next.js 13, React, TailwindCSS, ShadcnUI
+- **Backend:** Next.js API routes, Socket.io, Prisma ORM
+- **Database:** MySQL (Planetscale)
+- **Authentication:** Clerk
+- **File Uploads:** UploadThing
+- **Real-time:** Socket.io, LiveKit (voice/video)
+- **State/Data:** Tanstack Query (infinite scrolling, caching)
+- **Deployment:** Vercel (optimized)
 
-
-
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+---
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone the repository:
+
+```bash
+git clone https://github.com/areysid/Discord-Clone.git
+```
+
+### 2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn
+# or
+pnpm install
+# or
+bun install
+```
+
+### 3. Configure environment variables:
+
+- Create `.env` and fill in the required credentials (Clerk, MySQL, UploadThing, LiveKit, etc.).
+- For local MySQL, ensure a running database and update credentials accordingly.
+
+```bash
+DATABASE_URL="YOUR_PLANETSCALE_DATABASE_URL"
+CLERK_FRONTEND_API="YOUR_CLERK_FRONTEND_API"
+CLERK_API_KEY="YOUR_CLERK_API_KEY"
+LIVEKIT_API_KEY="YOUR_LIVEKIT_API_KEY"
+LIVEKIT_API_SECRET="YOUR_LIVEKIT_API_SECRET"
+UPLOADTHING_KEY="YOUR_UPLOADTHING_KEY"
+```
+
+### 4. Push Prisma schema to Planetscale
+
+```bash
+npx prisma db push
+```
+
+### 5. Run the development server:
 
 ```bash
 npm run dev
@@ -26,23 +73,39 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Open [http://localhost:3000](http://localhost:3000) to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Deploy on Vercel
+
+This branch is optimized for [Vercel](https://vercel.com/) deployment.
+
+1. Connect your GitHub repository to Vercel.
+2. Set up your environment variables in the Vercel dashboard.
+3. Deploy!
+
+_Read more in the [Next.js deployment documentation](https://nextjs.org/docs/deployment)._
+
+---
+
+## 🤝 Credits
+
+- **Tutorial by [Code With Antonio](https://www.youtube.com/@codewithantonio):**  
+  [Fullstack Discord Clone: Next.js 13, React, Socket.io, Prisma, TailwindCSS, MySQL]([https://www.youtube.com/watch?v=nu5mdN2JIwM](https://youtu.be/ZbX4Ok9YX94?si=w5ev8eUcXv1sB7ET))
+- **Project assistance by various AI chat agents.**
+
+---
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Prisma Documentation](https://www.prisma.io/docs/)
+- [Clerk Docs](https://clerk.com/docs)
+- [ShadcnUI Docs](https://ui.shadcn.com/docs)
+- [LiveKit Docs](https://docs.livekit.io/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Note:**  
+If you want to set up the project for local development, check out the [`version1`](https://github.com/areysid/Discord-Clone/tree/version1) branch which comes with extra local setup instructions and may be easier to run locally.
