@@ -1,4 +1,4 @@
-## 🚧 Current Progress
+## 🚧 Current Progress (V1)
 
 ✅ **Leave & Delete Server** feature has been implemented.
 
