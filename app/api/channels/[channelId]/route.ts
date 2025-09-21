@@ -3,14 +3,18 @@ import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { MemberRole } from "@prisma/client";
 
-export async function DELETE(
-  req: Request,
-  { params }: { params: { channelId: string } }
-) {
+// Define the type for the dynamic route parameters
+interface RouteContext {
+  params: Promise<{ channelId: string }>;
+}
+
+export async function DELETE(req: Request, context: RouteContext) {
   try {
+    // Resolve the params Promise
+    const { channelId } = await context.params;
+
     const profile = await currentProfile();
     const { searchParams } = new URL(req.url);
-
     const serverId = searchParams.get("serverId");
 
     if (!profile) {
@@ -21,11 +25,11 @@ export async function DELETE(
       return new NextResponse("Server ID missing", { status: 400 });
     }
 
-    if (!params.channelId) {
+    if (!channelId) {
       return new NextResponse("Channel ID missing", { status: 400 });
     }
 
-    // Make sure the user is an admin/moderator in the server
+    // Update the server by deleting the channel, ensuring the user is an admin/moderator
     const server = await db.server.update({
       where: {
         id: serverId,
@@ -34,34 +38,25 @@ export async function DELETE(
             profileId: profile.id,
             role: {
               in: [MemberRole.ADMIN, MemberRole.MODERATOR],
-            }
-          }
-        }
+            },
+          },
+        },
       },
       data: {
         channels: {
-            delete: {
-                id: params.channelId,
-                name: {
-                    not: "general",
-                }
-            }
-        }
-      }
+          delete: {
+            id: channelId,
+            name: {
+              not: "general", // Prevent deleting "general" channel
+            },
+          },
+        },
+      },
     });
 
     if (!server) {
       return new NextResponse("Unauthorized", { status: 403 });
     }
-
-    const deletedChannel = await db.channel.delete({
-      where: {
-        id: params.channelId,
-        NOT: {
-          name: "general", // Prevent deleting "general" channel
-        },
-      },
-    });
 
     return NextResponse.json(server);
   } catch (error) {
@@ -70,16 +65,12 @@ export async function DELETE(
   }
 }
 
-
-export async function PATCH(
-  req: Request,
-  { params }: { params: { channelId: string } }
-) {
+export async function PATCH(req: Request, context: RouteContext) {
   try {
-    const profile = await currentProfile();
-    const{name, type} = await req.json();
+    // Resolve the params Promise
+    const { channelId } = await context.params;
+    const { name, type } = await req.json();
     const { searchParams } = new URL(req.url);
-
     const serverId = searchParams.get("serverId");
 
     if (!profile) {
@@ -90,15 +81,15 @@ export async function PATCH(
       return new NextResponse("Server ID missing", { status: 400 });
     }
 
-    if (!params.channelId) {
+    if (!channelId) {
       return new NextResponse("Channel ID missing", { status: 400 });
     }
 
-    if(name === "general"){
-        return new NextResponse("Name cannot be generated", {status: 400});
+    if (name === "general") {
+      return new NextResponse("Name cannot be 'general'", { status: 400 });
     }
 
-    // Make sure the user is an admin/moderator in the server
+    // Update the server by updating the channel, ensuring the user is an admin/moderator
     const server = await db.server.update({
       where: {
         id: serverId,
@@ -107,32 +98,31 @@ export async function PATCH(
             profileId: profile.id,
             role: {
               in: [MemberRole.ADMIN, MemberRole.MODERATOR],
-            }
-          }
-        }
+            },
+          },
+        },
       },
       data: {
         channels: {
-            update: {
-                where:{
-                    id: params.channelId,
-                    NOT: {
-                        name: "general",
-                    },
-                },
-                data:{
-                    name,
-                    type,
-                }
-            }
-        }
-      }
+          update: {
+            where: {
+              id: channelId,
+              NOT: {
+                name: "general", // Prevent updating "general" channel
+              },
+            },
+            data: {
+              name,
+              type,
+            },
+          },
+        },
+      },
     });
 
-   
-      return NextResponse.json(server);
+    return NextResponse.json(server);
   } catch (error) {
-    console.error("[CHANNEL_ID_DELETE]", error);
+    console.error("[CHANNEL_ID_PATCH]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
