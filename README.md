@@ -4,6 +4,7 @@ A modern fullstack Discord clone built with [Next.js 13](https://nextjs.org/), [
 
 This branch is **optimized for deployment on Vercel**.  
 The project is live on [Vercel-DiscordClone](https://discord-clone-umber-chi.vercel.app/)
+
 If you want a smoother local development experience, check out the [`version1`](https://github.com/areysid/Discord-Clone/tree/version1) branch.
 
 ---
