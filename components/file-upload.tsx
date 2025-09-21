@@ -1,7 +1,7 @@
 "use client";
 
 import { UploadDropzone } from "@/lib/uploadthing";
-import { X } from "lucide-react";
+import { FileIcon, FileType, X } from "lucide-react";
 
 interface FileUploadProps {
   onChange: (url?: string) => void;
@@ -14,6 +14,30 @@ export const FileUpload = ({
   value,
   endpoint,
 }: FileUploadProps) => {
+  const urlWithoutQuery = value?.split("?")[0];
+  const isPdf = urlWithoutQuery?.toLowerCase().endsWith(".pdf");
+   if (value && isPdf) {
+    return (
+      <div className="relative flex items-center p-2 mt-2 rounded-md bg-background/10">
+        <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
+        <a
+          href={value}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
+        >
+          {value}
+        </a>
+        <button
+          onClick={() => onChange("")}
+          className="bg-rose-500 text-white p-1 rounded-full absolute -top-2 -right-2 shadow-sm"
+          type="button"
+        >
+          <X className="h-4 w-4" />
+        </button>
+      </div>
+    );
+  }
   return (
     <div className="w-full max-w-sm mx-auto">
       {!value ? (
@@ -53,4 +77,6 @@ export const FileUpload = ({
       )}
     </div>
   );
+  
 };
+
