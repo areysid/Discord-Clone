@@ -12,7 +12,6 @@ export async function DELETE(req: Request, context: RouteContext) {
   try {
     // Resolve the params Promise
     const { channelId } = await context.params;
-
     const profile = await currentProfile();
     const { searchParams } = new URL(req.url);
     const serverId = searchParams.get("serverId");
@@ -70,6 +69,7 @@ export async function PATCH(req: Request, context: RouteContext) {
     // Resolve the params Promise
     const { channelId } = await context.params;
     const { name, type } = await req.json();
+    const profile = await currentProfile(); // Added to define profile
     const { searchParams } = new URL(req.url);
     const serverId = searchParams.get("serverId");
 
@@ -119,6 +119,10 @@ export async function PATCH(req: Request, context: RouteContext) {
         },
       },
     });
+
+    if (!server) {
+      return new NextResponse("Unauthorized", { status: 403 });
+    }
 
     return NextResponse.json(server);
   } catch (error) {
