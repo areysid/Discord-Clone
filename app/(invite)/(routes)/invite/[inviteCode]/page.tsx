@@ -3,22 +3,12 @@ import { db } from "@/lib/db";
 import { RedirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-interface InviteCodePageProps {
-  params: {
-    inviteCode: string;
-  };
-}
-
-const InviteCodePage = async ({ params }: InviteCodePageProps) => {
+const InviteCodePage = async ({ params }: { params: { inviteCode: string } }) => {
   const profile = await currentProfile();
 
-  if (!profile) {
-    return <RedirectToSignIn />; // Only JSX returned when user not logged in
-  }
+  if (!profile) return <RedirectToSignIn />;
 
-  if (!params.inviteCode) {
-    redirect("/");
-  }
+  if (!params.inviteCode) redirect("/");
 
   const existingServer = await db.server.findFirst({
     where: {
@@ -27,21 +17,16 @@ const InviteCodePage = async ({ params }: InviteCodePageProps) => {
     },
   });
 
-  if (existingServer) {
-    redirect(`/server/${existingServer.id}`);
-  }
+  if (existingServer) redirect(`/server/${existingServer.id}`);
 
   const server = await db.server.update({
     where: { inviteCode: params.inviteCode },
     data: { members: { create: [{ profileId: profile.id }] } },
   });
 
-  if (server) {
-    redirect(`/server/${server.id}`);
-  }
+  if (server) redirect(`/server/${server.id}`);
 
-  return null; // Safe fallback
+  return null;
 };
-
 
 export default InviteCodePage;
