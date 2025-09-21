@@ -1,8 +1,8 @@
 ## 🚧 Current Progress
 
-✅ **Invitations** feature has been implemented.
+✅ **Leave & Delete Server** feature has been implemented.
 
-🛠️ **Server Settings** feature is next on the roadmap.
+🛠️ **Search Server Modal** feature is next on the roadmap.
 
 ---
 
