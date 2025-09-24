@@ -108,5 +108,19 @@ _Read more in the [Next.js deployment documentation](https://nextjs.org/docs/dep
 
 ---
 
+## 🧩 Community & Contributions
+
+This project was built with an older stack and does run slower compared to the real Discord app.  
+That said, it’s fully open-source, and we **welcome contributions from the community** to improve performance, modernize the stack, or add new features.
+
+If you’d like to contribute:
+1. Fork the repository.
+2. Create a feature branch.
+3. Submit a pull request.
+
+Your ideas and improvements are more than welcome! 🚀
+
+---
+
 **Note:**  
 If you want to set up the project for local development, check out the [`version1`](https://github.com/areysid/Discord-Clone/tree/version1) branch which comes with extra local setup instructions and may be easier to run locally.
